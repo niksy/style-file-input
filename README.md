@@ -4,6 +4,9 @@
 
 Style file input element.
 
+[CSS support for styling button element is widely available](https://caniuse.com/mdn-css_selectors_file-selector-button),
+but it doesn’t cover case where you want to style chosen filename element.
+
 ## Install
 
 ```sh
