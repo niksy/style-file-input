@@ -1,0 +1,5 @@
+export default {
+	'*.js': ['eslint --fix'],
+	'*.(md|json|yml)': ['prettier --ignore-path .gitignore --write'],
+	'.!(npm|browserslist)*rc': ['prettier --ignore-path .gitignore --parser json --write']
+};

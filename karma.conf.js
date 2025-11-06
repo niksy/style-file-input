@@ -1,99 +1,148 @@
-/* globals process:false */
-/* eslint-disable no-process-env */
+import path from 'node:path';
+import fs from 'node:fs';
+import stdLibBrowser from 'node-stdlib-browser';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import alias from '@rollup/plugin-alias';
+import json from '@rollup/plugin-json';
+import inject from '@rollup/plugin-inject';
+import babel from '@rollup/plugin-babel';
+import istanbul from 'rollup-plugin-istanbul';
+import rollupConfig from './rollup.config.js';
 
-'use strict';
+let config;
 
-module.exports = function ( config ) {
+const isCI = typeof process.env.CI !== 'undefined' && process.env.CI !== 'false';
+const isPR =
+	typeof process.env.GITHUB_HEAD_REF !== 'undefined' && process.env.GITHUB_HEAD_REF !== '';
+const local = !isCI || (isCI && isPR);
 
-	config.set({
-		basePath: '',
-		frameworks: ['browserify', 'mocha'],
-		files: [
-			'test/automated/**/*.html',
-			'test/automated/**/*.js'
-		],
-		exclude: [],
-		preprocessors: {
-			'test/automated/**/*.html': ['html2js'],
-			'test/automated/**/*.js': ['browserify']
-		},
-		reporters: ['mocha', 'coverage'],
-		port: 9001,
-		colors: true,
-		logLevel: config.LOG_INFO,
-		autoWatch: false,
+const port = 0;
+
+if (local) {
+	config = {
+		browsers: ['Chrome']
+	};
+} else {
+	config = {
+		hostname: 'bs-local.com',
 		browserStack: {
+			username: process.env.BROWSER_STACK_USERNAME,
+			accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
 			startTunnel: true,
 			project: 'style-file-input',
 			name: 'Automated (Karma)',
 			build: 'Automated (Karma)'
 		},
-		client: {
-			captureConsole: true,
-			mocha: {
-				ui: 'bdd'
+		customLaunchers: {
+			'BS-Chrome': {
+				'base': 'BrowserStack',
+				'project': 'style-file-input',
+				'build': 'Automated (Karma)',
+				'browser': 'Chrome',
+				'browser_version': '88',
+				'name': 'Chrome',
+				'os': 'Windows',
+				'os_version': '7'
+			},
+			'BS-Edge': {
+				'base': 'BrowserStack',
+				'project': 'style-file-input',
+				'build': 'Automated (Karma)',
+				'browser': 'Edge',
+				'browser_version': '88',
+				'name': 'Edge',
+				'os': 'Windows',
+				'os_version': '10'
+			},
+			'BS-Firefox': {
+				'base': 'BrowserStack',
+				'project': 'style-file-input',
+				'build': 'Automated (Karma)',
+				'browser': 'Firefox',
+				'browser_version': '85',
+				'name': 'Firefox',
+				'os': 'Windows',
+				'os_version': '7'
 			}
+		},
+		browsers: ['BS-Chrome', 'BS-Edge', 'BS-Firefox']
+	};
+}
+
+export default function (baseConfig) {
+	baseConfig.set({
+		basePath: '',
+		frameworks: ['mocha', 'fixture'],
+		files: ['test/automated/**/*.html', { pattern: 'test/automated/**/*.js', watched: false }],
+		exclude: [],
+		preprocessors: {
+			'test/automated/**/*.html': ['html2js'],
+			'test/automated/**/*.js': ['rollup', 'sourcemap']
+		},
+		reporters: ['coverage', 'mocha'],
+		port: port,
+		colors: true,
+		logLevel: baseConfig.LOG_INFO,
+		autoWatch: false,
+		client: {
+			captureConsole: true
 		},
 		browserConsoleLogOptions: {
 			level: 'log',
 			format: '%b %T: %m',
 			terminal: true
 		},
-		browserify: {
-			debug: true,
-			transform: [
-				'babelify',
-				['browserify-babel-istanbul', { defaultIgnore: true }]
-			]
-		},
-		coverageReporter: {
-			reporters: [
-				{
-					type: 'html'
-				},
-				{
-					type: 'text'
-				}
+		rollupPreprocessor: {
+			plugins: [
+				istanbul({
+					exclude: ['test/automated/**/*.js', 'node_modules/**/*']
+				}),
+				resolve({
+					browser: true,
+					preferBuiltins: true
+				}),
+				commonjs(),
+				alias({
+					entries: stdLibBrowser
+				}),
+				json(),
+				inject({
+					process: stdLibBrowser.process,
+					Buffer: [stdLibBrowser.buffer, 'Buffer']
+				}),
+				babel({
+					exclude: 'node_modules/**',
+					babelHelpers: 'runtime'
+				}),
+				babel({
+					include: 'node_modules/{has-flag,supports-color}/**',
+					babelHelpers: 'runtime',
+					babelrc: false,
+					configFile: path.resolve(import.meta.dirname, 'babel.config.js')
+				}),
+				...rollupConfig.plugins.filter(
+					({ name }) => !['babel', 'package-type', 'types'].includes(name)
+				)
 			],
-			check: {
-				global: {
-					statements: 80
-				}
+			output: {
+				format: 'iife',
+				name: 'styleFileInput',
+				sourcemap: baseConfig.autoWatch ? false : 'inline', // Source map support has weird behavior in watch mode
+				intro: 'window.TYPED_ARRAY_SUPPORT = false;' // IE9
 			}
 		},
-		customLaunchers: {
-			'BS-Chrome': {
-				base: 'BrowserStack',
-				browser: 'Chrome',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'style-file-input',
-				build: 'Automated (Karma)',
-				name: 'Chrome'
-			},
-			'BS-Firefox': {
-				base: 'BrowserStack',
-				browser: 'Firefox',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'style-file-input',
-				build: 'Automated (Karma)',
-				name: 'Firefox'
-			},
-			'BS-IE9': {
-				base: 'BrowserStack',
-				browser: 'IE',
-				'browser_version': '9',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'style-file-input',
-				build: 'Automated (Karma)',
-				name: 'IE9'
-			},
+		coverageReporter: {
+			dir: path.join(import.meta.dirname, 'coverage'),
+			reporters: [{ type: 'html' }, { type: 'text' }],
+			check: {
+				global: JSON.parse(
+					fs.readFileSync(path.join(import.meta.dirname, '.nycrc'), 'utf8')
+				)
+			}
 		},
-		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9'],
 		singleRun: true,
-		concurrency: Infinity
+		concurrency: Infinity,
+		...config
 	});
-
-};
+}
