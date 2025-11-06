@@ -40,7 +40,7 @@ if (local) {
 				'project': 'style-file-input',
 				'build': 'Automated (Karma)',
 				'browser': 'Chrome',
-				'browser_version': '88',
+				'browser_version': '80',
 				'name': 'Chrome',
 				'os': 'Windows',
 				'os_version': '7'
@@ -50,7 +50,7 @@ if (local) {
 				'project': 'style-file-input',
 				'build': 'Automated (Karma)',
 				'browser': 'Edge',
-				'browser_version': '88',
+				'browser_version': '80',
 				'name': 'Edge',
 				'os': 'Windows',
 				'os_version': '10'
@@ -60,7 +60,7 @@ if (local) {
 				'project': 'style-file-input',
 				'build': 'Automated (Karma)',
 				'browser': 'Firefox',
-				'browser_version': '85',
+				'browser_version': '72',
 				'name': 'Firefox',
 				'os': 'Windows',
 				'os_version': '7'

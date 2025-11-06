@@ -68,8 +68,8 @@ Destroy instance.
 
 ## Browser support
 
-Tested in Chrome 88, Edge 88, Firefox 85 and should work in all modern browsers
-([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMQ%3D%3D)).
+Tested in Chrome 80, Edge 80, Firefox 72 and should work in all modern browsers
+([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMA%3D%3D)).
 
 ## Caveats
 
