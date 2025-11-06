@@ -1,86 +1,81 @@
-'use strict';
-
-const extend = require('xtend/mutable');
-const classList = require('class-list');
-const classListMultipleValues = require('classlist-multiple-values');
-const offset = require('global-offset');
+// @ts-ignore
+import classListMultipleValues from 'classlist-multiple-values';
 
 /**
- * @param {Element} element
- * @param {Object} options
+ * @typedef {typeof defaultOptions} Options
  */
-function Stylefileinput ( element, options ) {
 
-	this.element = element;
-	this.options = extend({}, this.options, options);
+const defaultOptions = {
+	browseButtonLabel: 'Browse',
+	changeButtonLabel: 'Change',
+	noFileSelectedText: 'No file selected',
+	wrapperClass: 'kist-Stylefileinput',
+	inputClass: 'kist-Stylefileinput-input',
+	buttonClass: 'kist-Stylefileinput-button',
+	textClass: 'kist-Stylefileinput-text'
+};
 
-	this.prepareClassList();
+class Stylefileinput {
+	/**
+	 * @param {HTMLInputElement} element
+	 * @param {Options} options
+	 */
+	constructor(element, options) {
+		this.element = element;
+		this.options = {
+			...defaultOptions,
+			...options
+		};
 
-	this.setupDom();
-	this.setupEvents();
+		this.prepareClassList();
 
-}
-extend(Stylefileinput.prototype, {
+		this.setupDom();
+		this.setupEvents();
+	}
 
-	options: {
-		browseButtonLabel: 'Browse',
-		changeButtonLabel: 'Change',
-		noFileSelectedText: 'No file selected',
-		wrapperClass: 'kist-Stylefileinput',
-		inputClass: 'kist-Stylefileinput-input',
-		buttonClass: 'kist-Stylefileinput-button',
-		textClass: 'kist-Stylefileinput-text'
-	},
-
-	prepareClassList: function () {
-
-		const cl = classList(this.element);
-		const clmv = classListMultipleValues(cl);
+	prepareClassList() {
+		const clmv = classListMultipleValues(this.element.classList);
 
 		this.classList = {
 			add: clmv.add,
 			remove: clmv.remove
 		};
+	}
 
-	},
-
-	setupDom: function () {
-
-		this.classList.add(this.options.inputClass);
+	setupDom() {
+		this.classList?.add(this.options.inputClass);
 
 		this.wrapperElement = document.createElement('div');
-		this.wrapperClassList = classListMultipleValues(classList(this.wrapperElement));
+		this.wrapperClassList = classListMultipleValues(this.wrapperElement.classList);
 		this.wrapperClassList.add(this.options.wrapperClass);
 
 		this.buttonElement = document.createElement('span');
-		this.buttonClassList = classListMultipleValues(classList(this.buttonElement));
+		this.buttonClassList = classListMultipleValues(this.buttonElement.classList);
 		this.buttonClassList.add(this.options.buttonClass);
-		this.buttonElement.setAttribute('aria-hidden', true);
+		this.buttonElement.setAttribute('aria-hidden', 'true');
 		this.buttonElement.textContent = this.options.browseButtonLabel;
 
 		this.fileNameElement = document.createElement('span');
-		this.fileNameClassList = classListMultipleValues(classList(this.fileNameElement));
+		this.fileNameClassList = classListMultipleValues(this.fileNameElement.classList);
 		this.fileNameClassList.add(this.options.textClass);
-		this.fileNameElement.setAttribute('aria-hidden', true);
+		this.fileNameElement.setAttribute('aria-hidden', 'true');
 		this.fileNameElement.textContent = this.options.noFileSelectedText;
 
-		this.element.parentNode.insertBefore(this.wrapperElement, this.element);
+		this.element.parentNode?.insertBefore(this.wrapperElement, this.element);
 		this.wrapperElement.appendChild(this.element);
 		this.wrapperElement.appendChild(this.buttonElement);
 		this.wrapperElement.appendChild(this.fileNameElement);
+	}
 
-	},
+	destroyDom() {
+		this.classList?.remove(this.options.inputClass);
+		this.wrapperElement?.parentNode?.appendChild(this.element);
+		this.wrapperElement?.parentNode?.removeChild(this.wrapperElement);
+		this.element.style.left = '';
+		this.element.style.top = '';
+	}
 
-	destroyDom: function () {
-
-		this.classList.remove(this.options.inputClass);
-		this.wrapperElement.parentNode.appendChild(this.element);
-		this.wrapperElement.parentNode.removeChild(this.wrapperElement);
-
-	},
-
-	setupEvents: function () {
-
+	setupEvents() {
 		this.eventListeners = {
 			focus: this.handleFocus.bind(this),
 			blur: this.handleCheckChange.bind(this),
@@ -92,101 +87,116 @@ extend(Stylefileinput.prototype, {
 			mousemove: this.positionInput.bind(this)
 		};
 
-		Object.keys(this.eventListeners)
-			.forEach(( ev ) => {
-				this.element.addEventListener(ev, this.eventListeners[ev], false);
-			});
+		Object.keys(this.eventListeners).forEach((event_) => {
+			// @ts-ignore
+			const listener = this.eventListeners[event_];
+			this.element.addEventListener(event_, listener, false);
+		});
 
-		Object.keys(this.wrapperEventListeners)
-			.forEach(( ev ) => {
-				this.wrapperElement.addEventListener(ev, this.wrapperEventListeners[ev], false);
-			});
+		Object.keys(this.wrapperEventListeners).forEach((event_) => {
+			// @ts-ignore
+			const listener = this.wrapperEventListeners[event_];
+			this.wrapperElement?.addEventListener(event_, listener, false);
+		});
+	}
 
-	},
+	destroyEvents() {
+		Object.keys(this.eventListeners ?? {}).forEach((event_) => {
+			// @ts-ignore
+			const listener = this.eventListeners[event_];
+			this.element.removeEventListener(event_, listener, false);
+		});
 
-	destroyEvents: function () {
+		Object.keys(this.wrapperEventListeners ?? {}).forEach((event_) => {
+			// @ts-ignore
+			const listener = this.wrapperEventListeners[event_];
+			this.wrapperElement?.removeEventListener(event_, listener, false);
+		});
+	}
 
-		Object.keys(this.eventListeners)
-			.forEach(( ev ) => {
-				this.element.removeEventListener(ev, this.eventListeners[ev], false);
-			});
-
-		Object.keys(this.wrapperEventListeners)
-			.forEach(( ev ) => {
-				this.wrapperElement.removeEventListener(ev, this.wrapperEventListeners[ev], false);
-			});
-
-	},
-
-	destroy: function () {
+	destroy() {
 		this.destroyDom();
 		this.destroyEvents();
-	},
+	}
 
 	/* istanbul ignore next:
-	integration test */ handleFocus: function () {
-
+	integration test */ handleFocus() {
 		this.currentValue = this.element.value;
-
-	},
+	}
 
 	/* istanbul ignore next:
-	integration test */ handleCheckChange: function () {
-
-		if (
-			this.element.value &&
-			this.element.value !== this.currentValue
-		) {
+	integration test */ handleCheckChange() {
+		if (this.element.value && this.element.value !== this.currentValue) {
 			this.handleChange();
 		}
-
-	},
+	}
 
 	/* istanbul ignore next:
-	integration test */ handleChange: function () {
-
+	integration test */ handleChange() {
 		let fileName = this.element.value.split('\\').pop();
 		let buttonLabel = this.options.changeButtonLabel;
 
-		if ( !fileName ) {
+		if (!fileName) {
 			fileName = this.options.noFileSelectedText;
 			buttonLabel = this.options.browseButtonLabel;
 		}
 
-		this.fileNameElement.textContent = fileName;
-		this.buttonElement.textContent = buttonLabel;
-
-	},
+		if (this.fileNameElement) {
+			this.fileNameElement.textContent = fileName;
+		}
+		if (this.buttonElement) {
+			this.buttonElement.textContent = buttonLabel;
+		}
+	}
 
 	/* istanbul ignore next:
-	integration test */ handleClick: function () {
-
+	integration test */ handleClick() {
 		this.currentValue = this.element.value;
 
 		// For IE and Opera, make sure change fires after choosing a file, using an async callback
 		setTimeout(() => {
 			this.handleCheckChange();
 		}, 100);
-
-	},
-
-	/**
-	 * @param  {Event} e
-	 */
-	positionInput: function ( e ) {
-
-		const wrapperElementOffset = offset(this.wrapperElement);
-		const offsetTop = wrapperElementOffset.top;
-		const offsetLeft = wrapperElementOffset.left;
-
-		this.element.style.left = `${(e.pageX - offsetLeft) - this.element.offsetWidth + 20}px`;
-		this.element.style.top = `${(e.pageY - offsetTop) - 10}px`;
-
 	}
 
-});
+	/**
+	 * @param  {MouseEvent} event
+	 */
+	positionInput(event) {
+		if (this.wrapperElement) {
+			const wrapperElementOffset = globalOffset(this.wrapperElement);
+			const offsetTop = wrapperElementOffset.top;
+			const offsetLeft = wrapperElementOffset.left;
 
-module.exports = ( element, options ) => {
+			this.element.style.left = `${event.pageX - offsetLeft - this.element.offsetWidth + 20}px`;
+			this.element.style.top = `${event.pageY - offsetTop - 10}px`;
+		}
+	}
+}
+
+/**
+ * @param  {HTMLElement} element
+ */
+function globalOffset(element) {
+	const rect = element.getBoundingClientRect();
+	const top = rect.top;
+	const left = rect.left;
+
+	const _window = window;
+	const pageYOffset = _window.pageYOffset;
+	const pageXOffset = _window.pageXOffset;
+
+	return {
+		top: top + pageYOffset,
+		left: left + pageXOffset
+	};
+}
+
+/**
+ * @param {HTMLInputElement} element
+ * @param {Options} options
+ */
+export default (element, options) => {
 	const instance = new Stylefileinput(element, options);
 	return {
 		destroy: () => {
@@ -195,4 +205,4 @@ module.exports = ( element, options ) => {
 	};
 };
 
-module.exports.defaultOptions = Stylefileinput.prototype.options;
+export { defaultOptions };
