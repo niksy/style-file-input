@@ -9,10 +9,10 @@ const defaultOptions = {
 	browseButtonLabel: 'Browse',
 	changeButtonLabel: 'Change',
 	noFileSelectedText: 'No file selected',
-	wrapperClass: 'kist-Stylefileinput',
-	inputClass: 'kist-Stylefileinput-input',
-	buttonClass: 'kist-Stylefileinput-button',
-	textClass: 'kist-Stylefileinput-text'
+	wrapperClass: 'Stylefileinput',
+	inputClass: 'Stylefileinput-input',
+	buttonClass: 'Stylefileinput-button',
+	textClass: 'Stylefileinput-text'
 };
 
 class Stylefileinput {

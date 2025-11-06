@@ -1,10 +1,11 @@
-.kist-Stylefileinput {
+.Stylefileinput {
 	position: relative;
 	overflow: hidden;
 }
 
-.kist-Stylefileinput-input {
-	position: absolute; z-index: 1000;
+.Stylefileinput-input {
+	position: absolute;
+	z-index: 1000;
 	height: 100px;
 	border: 1px solid #000;
 	opacity: 0;
@@ -12,6 +13,6 @@
 	cursor: pointer;
 }
 
-.kist-Stylefileinput-input[disabled] {
+.Stylefileinput-input[disabled] {
 	cursor: default;
 }

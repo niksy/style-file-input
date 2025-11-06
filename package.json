@@ -9,13 +9,14 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "style": "./dist/index.css",
       "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "style": "index.css",
+  "style": "dist/index.css",
   "directories": {
     "test": "test"
   },
@@ -26,8 +27,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.js",
-    "lint": "eslint '{index,lib/**/*,test/**/*}.js'",
+    "build": "rollup --config rollup.config.js && cp index.css dist/index.css",
+    "lint": "eslint '{index,lib/**/*,test/**/*}.js' && stylelint 'index.css'",
     "lint:types": "tsc",
     "prepare": "if [[ -x \"$(command -v husky)\" ]]; then husky; fi",
     "prepublishOnly": "npm run build",
@@ -98,7 +99,9 @@
     "rollup-plugin-serve": "^1.1.1",
     "rollup-plugin-static-site": "0.1.0",
     "simulant": "^0.2.2",
-    "stylelint": "^7.13.0",
+    "stylelint": "^16.25.0",
+    "stylelint-config-nitpick": "^11.1.0",
+    "stylelint-prettier": "^5.0.3",
     "suitcss-components-test": "^1.0.0",
     "typescript": "^5.9.3",
     "version-changelog": "^3.1.1"

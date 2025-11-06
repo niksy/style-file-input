@@ -1,12 +1,14 @@
+/* stylelint-disable selector-no-qualifying-type  */
+
 @import url('suitcss-components-test');
 @import url('../../index.css');
 
-input[type="file"]:focus + span {
+input[type='file']:focus + span {
 	outline: 1px dotted #000;
 }
 
-.Test-run--basicElement .kist-Stylefileinput {
-	background: hotpink;
-	padding: 20px;
+.Test-run--basicElement .Stylefileinput {
 	max-width: 300px;
+	padding: 20px;
+	background: hotpink;
 }

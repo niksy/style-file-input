@@ -52,15 +52,15 @@ Element on which to apply changes.
 
 Type: `Object`
 
-| Property             | Type     | Default                        | Description                      |
-| -------------------- | -------- | ------------------------------ | -------------------------------- |
-| `browseButtonLabel`  | `String` | `'Browse'`                     | Button label for browse action.  |
-| `changeButtonLabel`  | `String` | `'Change'`                     | Button label for change action.  |
-| `noFileSelectedText` | `String` | `'No file selected'`           | Default input value placeholder. |
-| `wrapperClass`       | `String` | `'kist-Stylefileinput'`        | Wrapper class.                   |
-| `inputClass`         | `String` | `'kist-Stylefileinput-input'`  | Input class.                     |
-| `buttonClass`        | `String` | `'kist-Stylefileinput-button'` | Browse/change button class.      |
-| `textClass`          | `String` | `'kist-Stylefileinput-text'`   | Input value placeholder class.   |
+| Property             | Type     | Default                   | Description                      |
+| -------------------- | -------- | ------------------------- | -------------------------------- |
+| `browseButtonLabel`  | `String` | `'Browse'`                | Button label for browse action.  |
+| `changeButtonLabel`  | `String` | `'Change'`                | Button label for change action.  |
+| `noFileSelectedText` | `String` | `'No file selected'`      | Default input value placeholder. |
+| `wrapperClass`       | `String` | `'Stylefileinput'`        | Wrapper class.                   |
+| `inputClass`         | `String` | `'Stylefileinput-input'`  | Input class.                     |
+| `buttonClass`        | `String` | `'Stylefileinput-button'` | Browse/change button class.      |
+| `textClass`          | `String` | `'Stylefileinput-text'`   | Input value placeholder class.   |
 
 ### instance.destroy()
 

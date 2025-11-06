@@ -18,7 +18,7 @@ it('should create instance', function () {
 	const element = /** @type {HTMLInputElement} */ (document.querySelector('.jackie'));
 	const instance = function_(element);
 
-	assert.ok(element.classList.contains('kist-Stylefileinput-input'));
+	assert.ok(element.classList.contains('Stylefileinput-input'));
 
 	instance.destroy();
 });
@@ -29,7 +29,7 @@ it('should destroy instance', function () {
 
 	instance.destroy();
 
-	assert.ok(!element.classList.contains('kist-Stylefileinput-input'));
+	assert.ok(!element.classList.contains('Stylefileinput-input'));
 });
 
 it('should reposition input element on mouse move', function () {
