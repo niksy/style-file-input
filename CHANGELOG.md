@@ -2,6 +2,11 @@
 
 ## [Unreleased][]
 
+### Changed
+
+- Update styles configuration
+- Mention CSS only support
+
 ## [2.0.1][] - 2025-11-06
 
 ### Changed
