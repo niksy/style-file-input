@@ -18,7 +18,7 @@ const defaultOptions = {
 class Stylefileinput {
 	/**
 	 * @param {HTMLInputElement} element
-	 * @param {Options} options
+	 * @param {Options=} options
 	 */
 	constructor(element, options) {
 		this.element = element;
@@ -194,7 +194,7 @@ function globalOffset(element) {
 
 /**
  * @param {HTMLInputElement} element
- * @param {Options} options
+ * @param {Options=} options
  */
 export default (element, options) => {
 	const instance = new Stylefileinput(element, options);

@@ -25,5 +25,6 @@
 		"rewriteRelativeImportExtensions": true,
 		"erasableSyntaxOnly": true
 	},
-	"include": ["index.js", "lib/**/*.js", "test/**/*.js"]
+	"include": ["index.js", "lib/**/*.js", "test/**/*.js"],
+	"exclude": ["test/manual/rollup.config.js"]
 }
