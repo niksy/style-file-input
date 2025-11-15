@@ -1,11 +1,17 @@
-// @ts-ignore
 import classListMultipleValues from 'classlist-multiple-values';
 
 /**
- * @typedef {typeof defaultOptions} Options
+ * @typedef {object} Options
+ * @property {string} browseButtonLabel Button label for browse action.
+ * @property {string} changeButtonLabel Button label for change action.
+ * @property {string} noFileSelectedText Default input value placeholder.
+ * @property {string} wrapperClass Wrapper class.
+ * @property {string} inputClass Input class.
+ * @property {string} buttonClass Browse/change button class.
+ * @property {string} textClass Input value placeholder class.
  */
 
-const defaultOptions = {
+const defaultOptions = /** @type {Options} */ ({
 	browseButtonLabel: 'Browse',
 	changeButtonLabel: 'Change',
 	noFileSelectedText: 'No file selected',
@@ -13,7 +19,7 @@ const defaultOptions = {
 	inputClass: 'Stylefileinput-input',
 	buttonClass: 'Stylefileinput-button',
 	textClass: 'Stylefileinput-text'
-};
+});
 
 class Stylefileinput {
 	/**
@@ -87,30 +93,30 @@ class Stylefileinput {
 			mousemove: this.positionInput.bind(this)
 		};
 
-		Object.keys(this.eventListeners).forEach((event_) => {
-			// @ts-ignore
-			const listener = this.eventListeners[event_];
-			this.element.addEventListener(event_, listener, false);
+		Object.entries(this.eventListeners).forEach(([event, listener]) => {
+			this.element.addEventListener(event, listener, false);
 		});
 
-		Object.keys(this.wrapperEventListeners).forEach((event_) => {
-			// @ts-ignore
-			const listener = this.wrapperEventListeners[event_];
-			this.wrapperElement?.addEventListener(event_, listener, false);
+		Object.entries(this.wrapperEventListeners).forEach(([event, listener]) => {
+			this.wrapperElement?.addEventListener(
+				/** @type {keyof typeof this.wrapperEventListeners}*/ (event),
+				listener,
+				false
+			);
 		});
 	}
 
 	destroyEvents() {
-		Object.keys(this.eventListeners ?? {}).forEach((event_) => {
-			// @ts-ignore
-			const listener = this.eventListeners[event_];
-			this.element.removeEventListener(event_, listener, false);
+		Object.entries(this.eventListeners ?? {}).forEach(([event, listener]) => {
+			this.element.removeEventListener(event, listener, false);
 		});
 
-		Object.keys(this.wrapperEventListeners ?? {}).forEach((event_) => {
-			// @ts-ignore
-			const listener = this.wrapperEventListeners[event_];
-			this.wrapperElement?.removeEventListener(event_, listener, false);
+		Object.entries(this.wrapperEventListeners ?? {}).forEach(([event, listener]) => {
+			this.wrapperElement?.removeEventListener(
+				/** @type {keyof typeof this.wrapperEventListeners}*/ (event),
+				listener,
+				false
+			);
 		});
 	}
 
@@ -193,16 +199,18 @@ function globalOffset(element) {
 }
 
 /**
- * @param {HTMLInputElement} element
+ * Style file input element.
+ *
+ * @param {HTMLInputElement} element Element on which to apply changes.
  * @param {Options=} options
  */
-export default (element, options) => {
+export default function (element, options) {
 	const instance = new Stylefileinput(element, options);
 	return {
 		destroy: () => {
 			instance.destroy();
 		}
 	};
-};
+}
 
 export { defaultOptions };
