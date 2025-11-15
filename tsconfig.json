@@ -3,8 +3,8 @@
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"moduleDetection": "force",
-		"target": "esnext",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"target": "es2022",
+		"lib": ["DOM", "DOM.Iterable", "ES2024"],
 		"resolveJsonModule": false,
 		"newLine": "lf",
 		"strict": true,
@@ -25,6 +25,5 @@
 		"rewriteRelativeImportExtensions": true,
 		"erasableSyntaxOnly": true
 	},
-	"include": ["index.js", "lib/**/*.js", "test/**/*.js"],
-	"exclude": ["test/manual/rollup.config.js"]
+	"include": ["*.js", "lib", "test"]
 }

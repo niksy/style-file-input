@@ -1,10 +1,9 @@
 import assert from 'node:assert';
-// @ts-ignore
 import simulant from 'simulant';
 import function_ from '../../index.js';
 
 before(function () {
-	// @ts-ignore
+	// @ts-expect-error
 	const fixture = window.__html__['test/automated/fixtures/index.html'];
 	document.body.insertAdjacentHTML('beforeend', `<div id="fixture">${fixture}</div>`);
 });
@@ -36,6 +35,8 @@ it('should reposition input element on mouse move', function () {
 	const element = /** @type {HTMLInputElement} */ (document.querySelector('.jackie'));
 	const instance = function_(element);
 	const elementWrapper = element.parentNode;
+
+	assert.ok(elementWrapper);
 
 	simulant.fire(elementWrapper, 'mousemove');
 

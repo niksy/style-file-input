@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Changed
+
+- Upgrade package
+
 ## [2.1.0][] - 2025-11-06
 
 ### Changed

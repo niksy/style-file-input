@@ -57,13 +57,13 @@ Type: `Object`
 
 | Property             | Type     | Default                   | Description                      |
 | -------------------- | -------- | ------------------------- | -------------------------------- |
-| `browseButtonLabel`  | `String` | `'Browse'`                | Button label for browse action.  |
-| `changeButtonLabel`  | `String` | `'Change'`                | Button label for change action.  |
-| `noFileSelectedText` | `String` | `'No file selected'`      | Default input value placeholder. |
-| `wrapperClass`       | `String` | `'Stylefileinput'`        | Wrapper class.                   |
-| `inputClass`         | `String` | `'Stylefileinput-input'`  | Input class.                     |
-| `buttonClass`        | `String` | `'Stylefileinput-button'` | Browse/change button class.      |
-| `textClass`          | `String` | `'Stylefileinput-text'`   | Input value placeholder class.   |
+| `browseButtonLabel`  | `string` | `'Browse'`                | Button label for browse action.  |
+| `changeButtonLabel`  | `string` | `'Change'`                | Button label for change action.  |
+| `noFileSelectedText` | `string` | `'No file selected'`      | Default input value placeholder. |
+| `wrapperClass`       | `string` | `'Stylefileinput'`        | Wrapper class.                   |
+| `inputClass`         | `string` | `'Stylefileinput-input'`  | Input class.                     |
+| `buttonClass`        | `string` | `'Stylefileinput-button'` | Browse/change button class.      |
+| `textClass`          | `string` | `'Stylefileinput-text'`   | Input value placeholder class.   |
 
 ### instance.destroy()
 
@@ -72,7 +72,7 @@ Destroy instance.
 ## Browser support
 
 Tested in Chrome 80, Edge 80, Firefox 72 and should work in all modern browsers
-([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMA%3D%3D)).
+([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMCwgbm90IGVkZ2UgPCA4MA%3D%3D)).
 
 ## Caveats
 
