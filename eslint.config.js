@@ -21,7 +21,13 @@ export default defineConfig([
 		}
 	},
 	{
-		files: ['test/manual/vite.config.js', 'karma.conf.js', 'rolldown.config.js'],
+		files: [
+			'test/manual/vite.config.js',
+			'karma.conf.js',
+			'wdio.conf.js',
+			'rolldown.config.js',
+			'.mocharc.cjs'
+		],
 		languageOptions: {
 			globals: {
 				...globals.node
