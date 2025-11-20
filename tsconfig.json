@@ -25,6 +25,6 @@
 		"rewriteRelativeImportExtensions": true,
 		"erasableSyntaxOnly": true
 	},
-	"include": ["*.js", "lib", "test"],
+	"include": ["*.{js,cjs}", "lib", "test"],
 	"exclude": ["test/manual/dist"]
 }

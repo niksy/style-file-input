@@ -72,7 +72,7 @@ Destroy instance.
 ## Browser support
 
 Tested in Chrome 80, Edge 80, Firefox 72 and should work in all modern browsers
-([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMA%3D%3D)).
+([support based on Browserslist configuration](https://browserslist.dev/?q=c2luY2UgMjAyMCwgbm90IGVkZ2UgPCA4MA%3D%3D)).
 
 ## Caveats
 
@@ -87,6 +87,8 @@ Tested in Chrome 80, Edge 80, Firefox 72 and should work in all modern browsers
 ## Test
 
 For automated tests, run `npm run test:automated` (append `:watch` for watcher support).
+
+For integration tests, run `npm run test:integration` (append `:watch` for watcher support).
 
 For manual tests, run `npm run test:manual`.
 
