@@ -3,14 +3,12 @@ import simulant from 'simulant';
 import function_ from '../../index.js';
 
 before(function () {
-	// @ts-expect-error
-	const fixture = window.__html__['test/automated/fixtures/index.html'];
-	document.body.insertAdjacentHTML('beforeend', `<div id="fixture">${fixture}</div>`);
+	window.fixture.load('/test/automated/fixtures/index.html');
+	document.body.append(window.fixture.el);
 });
 
 after(function () {
-	const element = /** @type {HTMLDivElement} */ (document.querySelector('#fixture'));
-	document.body.removeChild(element);
+	window.fixture.cleanup();
 });
 
 it('should create instance', function () {

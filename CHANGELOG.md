@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+- Improve tests
+
 ## [2.2.0][] - 2025-11-20
 
 ### Changed
@@ -26,6 +28,8 @@
 ### Changed
 
 - Upgrade package
+
+<!-- prettier-ignore-start -->
 
 [Unreleased]: https://github.com/niksy/style-file-input/compare/v2.2.0...HEAD
 [2.2.0]: https://github.com/niksy/style-file-input/compare/v2.1.0...v2.2.0
