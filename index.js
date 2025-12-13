@@ -1,4 +1,5 @@
 import classListMultipleValues from 'classlist-multiple-values';
+import './index.css';
 
 /**
  * @typedef {object} Options

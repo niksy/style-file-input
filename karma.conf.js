@@ -111,7 +111,7 @@ export default function (baseConfig) {
 			},
 			plugins: [
 				istanbul({
-					exclude: ['test/automated/**/*.js', 'node_modules/**/*']
+					exclude: ['test/automated/**/*.js', 'node_modules/**/*', '*.css']
 				}),
 				...(Array.isArray(rolldownConfig[0]?.plugins)
 					? rolldownConfig[0]?.plugins.filter((plugin) => {
