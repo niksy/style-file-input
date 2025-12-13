@@ -2,6 +2,14 @@
 
 ## [Unreleased][]
 
+### Added
+
+- Missing style files to release
+
+### Changed
+
+- Update disabled input styles
+
 ## [2.2.1][] - 2025-11-23
 
 - Improve tests
