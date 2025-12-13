@@ -13,6 +13,6 @@
 	cursor: pointer;
 }
 
-.Stylefileinput-input[disabled] {
+.Stylefileinput-input:disabled {
 	cursor: default;
 }
