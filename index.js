@@ -205,7 +205,7 @@ function globalOffset(element) {
  * @param {HTMLInputElement} element Element on which to apply changes.
  * @param {Options=} options
  */
-export default function (element, options) {
+function api(element, options) {
 	const instance = new Stylefileinput(element, options);
 	return {
 		destroy: () => {
@@ -213,5 +213,6 @@ export default function (element, options) {
 		}
 	};
 }
+api.defaultOptions = defaultOptions;
 
-export { defaultOptions };
+export default api;

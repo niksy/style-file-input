@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Changed
+
+- Normalized default options access
+
 ## [2.2.2][] - 2025-12-13
 
 ### Added

@@ -65,6 +65,10 @@ Type: `Object`
 | `buttonClass`        | `string` | `'Stylefileinput-button'` | Browse/change button class.      |
 | `textClass`          | `string` | `'Stylefileinput-text'`   | Input value placeholder class.   |
 
+### stylefileinput.defaultOptions
+
+Access to [default options](#options) so you can e.g. compose class values for elements.
+
 ### instance.destroy()
 
 Destroy instance.

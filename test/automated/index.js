@@ -16,6 +16,7 @@ it('should create instance', function () {
 	const instance = function_(element);
 
 	assert.ok(element.classList.contains('Stylefileinput-input'));
+	assert.ok(typeof function_.defaultOptions !== 'undefined');
 
 	instance.destroy();
 });
